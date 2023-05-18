@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ post.title }} | {% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          <div class="content">
+            {% if post.image %}
+            <figure class="image mb-4">
+              <img src="{{ post.get_thumbnail }}" alt="">
+            </figure>
+            {% endif %}
+            <h2 class="subtitle is-6 has-text-grey">{{ post.created_at|timesince }} ago</h2>
+            <h1 class="title is-3">{{ post.title }}</h1>
+            <p><strong>{{ post.intro }}</strong></p>
+            <hr>
+            <div class="content">
+              <p>{{ post.body | safe}}</p>
+            </div>
+            <hr>
+            <p class="mb-4"><strong>Category: <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></strong></p>
+            <hr>
+            <br><br><br>
+            <div class="comments">
+              <h2 class="subtitle is-5">Comments</h2>
+              <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-success mb-4">Submit comment</button>
+                  </div>
+                </div>
+              </form>
+              {% for comment in post.comments.all %}
+              <article class="media mb-4">
+                <div class="media-content">
+                  <p><strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small></p>
+                  <p>{{ comment.body }}</p>
+                </div>
+              </article>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+{% endblock %}

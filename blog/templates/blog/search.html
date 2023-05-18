@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Search| {% endblock %}
+{% load static %}
+{% block content %}
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+               <section class="section">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <div class="content is-medium">
+                            <h1>Search Results</h1>
+                            <h3>Query "{{ query }}"</h3>
+                        </div>
+
+                        {% for post in posts %}
+                        <div class="blog_box">
+                            <div class="content is-medium">
+                                {% if post.image %}
+                                    <div class="about_img"><img src="{{ post.get_thumbnail  }}"></div>
+                                    <div class="like_icon" id="page"><img src="{% static 'images/like-icon.png' %}"></div>
+                                {% endif %}
+                                
+                                <h2 class="subtitle is-4">{{post.created_at|date:'d-M-Y H:i'}}</h2>
+                                <h1 class="title">{{post.title}}</h1>
+                                <p>{{ post.intro }}</p>
+                                <a href="{% url 'post_detail' post.category.slug post.slug %}">Read More</a>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <div class="content">
+                                <p>There are no search results for the given query.....</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+               </section> 
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}

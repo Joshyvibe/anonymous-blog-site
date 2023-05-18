@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Create Post | {% endblock %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <h2 class="title is-3">Create a New Post</h2>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.media }}
+          <div class="field">
+            <label class="label">Category</label>
+            <div class="control">
+                {{ form.category|add_class:'select2' }}
+            </div>
+          </div>    
+        
+          <div class="field">
+            <label class="label">Title</label>
+            <div class="control">
+              {{ form.title|add_class:'input' }}
+            </div>
+          </div>
+    
+          <div class="field">
+            <label class="label">Intro</label>
+            <div class="control">
+              {{ form.intro|add_class:'input' }}
+            </div>
+          </div>
+          <div class="field form-body">
+            <label class="label">Body</label>
+            <div class="control">
+                <p>{{ form.body|add_class:'textarea'}}</p>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Image</label>
+            <div class="control">
+              <div id="image-dropzone" class="file is-primary has-name dropzone">
+                <label class="file-label">
+                  {{ form.image|add_class:'file-input' }}
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-image"></i>
+                    </span>
+                    
+                  </span>
+                  <span class="file-preview">
+                    <img id="preview-image" src="" alt="Preview" />
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>          
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary" type="submit">Create Post</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+
+
+
+{% endblock %}
