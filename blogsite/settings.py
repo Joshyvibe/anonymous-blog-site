@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'blog',
     'widget_tweaks',
     'ckeditor',
+    'corsheaders',
 ]
 
 CKEDITOR_CONFIGS = {
@@ -52,6 +53,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+CSRF_TRUSTED_ORIGINS = ['*']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -61,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'blogsite.urls'
